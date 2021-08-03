@@ -173,26 +173,26 @@
 // areThereDuplicates(1, 2, 2) // true
 // Q: How to accept variable number of arguments?
 // A: Use ...spread syntax, or use 'arguments' built-in variable
-// function areThereDuplicates(...args) {
-//   // Q: How to check if argument is Array?
-//   // A: Use built-in Array.isArray(arg) method!
-//   if (!Array.isArray(args)) {
-//     console.log(`args is not typeof Array. It is type ${typeof args}`);
-//     return false;
-//   }
-//   const lookup = {};
-//   for (let i = 0; i < args.length; i++) {
-//     let item = args[i];
-//     lookup[item] ? (lookup[item] += 1) : (lookup[item] = 1);
-//     // lookup[item] = (lookup[item] || 0) + 1;
-//     if (lookup[item] > 1) {
-//       console.log(`Duplicate item: ${item}`);
-//       return true;
-//     }
-//   }
-//   console.log(`No duplicates: ${lookup}`);
-//   return false;
-// }
+function areThereDuplicates(...args) {
+  // Q: How to check if argument is Array?
+  // A: Use built-in Array.isArray(arg) method!
+  if (!Array.isArray(args)) {
+    console.log(`args is not typeof Array. It is type ${typeof args}`);
+    return false;
+  }
+  const lookup = {};
+  for (let i = 0; i < args.length; i++) {
+    let item = args[i];
+    lookup[item] ? (lookup[item] += 1) : (lookup[item] = 1);
+    // lookup[item] = (lookup[item] || 0) + 1;
+    if (lookup[item] > 1) {
+      console.log(`Duplicate item: ${item}`);
+      return true;
+    }
+  }
+  console.log(`No duplicates: ${lookup}`);
+  return false;
+}
 
 // === areThereDuplicates Frequency Counter Solution
 // NOTE Uses built-in arguments variable for multiple arguments
@@ -223,13 +223,13 @@
 //   return false;
 // }
 
-// === areThereDuplicates One-Liner using Sets Solution
-function areThereDuplicates() {
-  let result = new Set(arguments);
-  console.log(result);
-  return result.size !== arguments.length ? true : false;
-  // return new Set(arguments).size !== arguments.length;
-}
+// // === areThereDuplicates One-Liner using Sets Solution
+// function areThereDuplicates() {
+//   let result = new Set(arguments);
+//   console.log(result);
+//   return result.size !== arguments.length ? true : false;
+//   // return new Set(arguments).size !== arguments.length;
+// }
 
 areThereDuplicates(134);
 areThereDuplicates([134]);
