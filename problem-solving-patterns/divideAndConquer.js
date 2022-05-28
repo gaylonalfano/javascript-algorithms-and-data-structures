@@ -1,4 +1,5 @@
 // Binary Search - For sorted arrays
+// Time Complexity Log(N)
 function search(array, val) {
   let min = 0;
   let max = array.length - 1;

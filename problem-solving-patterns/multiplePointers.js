@@ -113,39 +113,78 @@
 // }
 
 // COLT'S SOLUTION
-function countUniqueValues(arr) {
-  // NOTE The high-level summary is that he compares the two pointers,
-  // and when there is not a match, he increments i++ to move up one index,
-  // and then he takes the value of the front pointer (arr[j]) and inserts
-  // it (mutates the arr) at i's new index.
-  // NOTE E.g. [1,1,2,3,3,4,5,6,6,7] => [1,2,3,4,5,6,7,6,6,7], where i ends up
-  // at the first 7, and j ends up at last 7. We then just want the array up to
-  // and including i, => [1,2,3,4,5,6,7].
-  // Check that an empty array returns zero
-  if (arr.length === 0) return 0;
-  // NOTE Interesting he reversed the pointers
-  let i = 0;
-  for (let j = 1; j < arr.length; j++) {
-    if (arr[i] !== arr[j]) {
-      // Increment i
-      i++;
-      // Insert the value of front pointer (arr[j]) at new i index
-      // NOTE Mutating the array!
-      arr[i] = arr[j];
-    }
-  }
-  // Our final i index position includes the last unique count value
-  // So since we're 0 based index, need to add 1 to get the full count
-  return i + 1;
-}
+// function countUniqueValues(arr) {
+//   // NOTE The high-level summary is that he compares the two pointers,
+//   // and when there is not a match, he increments i++ to move up one index,
+//   // and then he takes the value of the front pointer (arr[j]) and inserts
+//   // it (mutates the arr) at i's new index.
+//   // NOTE E.g. [1,1,2,3,3,4,5,6,6,7] => [1,2,3,4,5,6,7,6,6,7], where i ends up
+//   // at the first 7, and j ends up at last 7. We then just want the array up to
+//   // and including i, => [1,2,3,4,5,6,7].
+//   // Check that an empty array returns zero
+//   if (arr.length === 0) return 0;
+//   // NOTE Interesting he reversed the pointers
+//   let i = 0;
+//   for (let j = 1; j < arr.length; j++) {
+//     if (arr[i] !== arr[j]) {
+//       // Increment i
+//       i++;
+//       // Insert the value of front pointer (arr[j]) at new i index
+//       // NOTE Mutating the array!
+//       arr[i] = arr[j];
+//     }
+//   }
+//   // Our final i index position includes the last unique count value
+//   // So since we're 0 based index, need to add 1 to get the full count
+//   return i + 1;
+// }
 
-// ANOTHER SOLUTION USING SETS
-// NOTE Apparently still O(n) time complexity but a little slower than for loop
-function countUniqueValues(arr) {
-  return new Set(arr).size;
-}
+// // ANOTHER SOLUTION USING SETS
+// // NOTE Apparently still O(n) time complexity but a little slower than for loop
+// function countUniqueValues(arr) {
+//   return new Set(arr).size;
+// }
 
 // countUniqueValues([1, 1, 1, 1, 2]);
 //countUniqueValues([]);
 // countUniqueValues([-2, -1, -1, 0, 1]);
-countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]);
+// countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]);
+
+// === CHALLENGE averagePair
+// = MY SOLUTION
+function averagePair(arr, targetValue) {
+  console.log("-------\n");
+  if (arr.length === 0) return false;
+
+  let leftPointer = 0;
+  let rightPointer = arr.length - 1;
+
+  // NOTE:
+  // If avg is > targetValue, then move rightPointer left one index
+  // If avg is < targetValue, then move leftPointer right one index
+  // averagePair([1,3,3,5,6,7,10,12,19], 8)
+  let counter = 0;
+  while (leftPointer < rightPointer) {
+    counter++;
+    let avg = (arr[leftPointer] + arr[rightPointer]) / 2;
+    console.log(`counter: ${counter}`);
+    console.log(`leftPointer: ${leftPointer}, val: ${arr[leftPointer]}`);
+    console.log(`rightPointer: ${rightPointer}, val: ${arr[rightPointer]}`);
+    console.log(`avg: ${avg}`);
+
+    if (avg > targetValue) {
+      rightPointer -= 1;
+    } else if (avg < targetValue) {
+      leftPointer += 1;
+    } else if (avg == targetValue) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+console.log(averagePair([1, 3, 3, 5, 6, 7, 10, 12, 19], 8));
+console.log(averagePair([], 8));
+console.log(averagePair([1, 4, 4, 5, 6, 7, 10, 12, 19], 11));
+console.log(averagePair([1, 3, 4, 6, 7, 9, 12, 19], 21));
