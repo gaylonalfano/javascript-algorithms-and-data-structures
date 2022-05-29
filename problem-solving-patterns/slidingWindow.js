@@ -24,7 +24,7 @@
 
 // REFACTORED Time Complexity O(N) (linear complexity)
 // NOTE Rather than re-calculating the ENTIRE sum, we
-// simply move up 1, subject the previous index value from
+// simply move up 1, subtract the previous index value from
 // our temporary sum value, then add the next/future index
 // value to our sum value.
 function maxSubarraySum(arr, num) {
